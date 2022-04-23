@@ -7,8 +7,8 @@ public interface SuperConverter<T> {
 
     Iterable<InputType> getAvailableTypes();
 
-    <V> T convert(InputType type, V input);
+    Converter<? extends Convertable, T> getConverter(InputType inputType);
 
     // TODO: попробовать сделать так чтобы он сам находил конверторы, а не они его
-    void addConverter(Converter<?, T> converter);
+    void addConverter(Converter<? extends Convertable, T> converter);
 }

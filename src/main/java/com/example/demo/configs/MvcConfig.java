@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
@@ -25,7 +26,8 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter() {
+    public CommonsRequestLoggingFilter requestLoggingFilter(RestTemplate rs) {
+        rs.getErrorHandler();
         CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
         loggingFilter.setIncludeClientInfo(true);
         // FIXME вырезать на проде
