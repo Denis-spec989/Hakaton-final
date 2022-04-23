@@ -26,8 +26,7 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter(RestTemplate rs) {
-        rs.getErrorHandler();
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
         CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
         loggingFilter.setIncludeClientInfo(true);
         // FIXME вырезать на проде

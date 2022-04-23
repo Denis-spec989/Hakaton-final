@@ -1,10 +1,10 @@
 package com.example.demo.services.convertors.impl;
 
-public class Foo {
+public class Boo {
     private final String name;
 
-    public Foo() {
-        this.name = "ffffffffffuck";
+    public Boo() {
+        this.name = "boooooooooo";
     }
 
     public String getName() {
