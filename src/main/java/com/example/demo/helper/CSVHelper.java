@@ -26,7 +26,9 @@ public class CSVHelper {
             List<PetrolStationDto> stations = new ArrayList<PetrolStationDto>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
             for (CSVRecord csvRecord : csvRecords) {
-                PetrolStationDto station = new PetrolStationDto(csvRecord.get(0), Double.parseDouble(csvRecord.get(1)), Double.parseDouble(csvRecord.get(3)), csvRecord.get(4), csvRecord.get(5), csvRecord.get(6), csvRecord.get(7));
+               // PetrolStationDto station = new PetrolStationDto(csvRecord.get(0), Double.parseDouble(csvRecord.get(1)), Double.parseDouble(csvRecord.get(3)), csvRecord.get(4), csvRecord.get(5), csvRecord.get(6), csvRecord.get(7));
+                PetrolStationDto station = new PetrolStationDto(csvRecord.get("address"), Double.parseDouble(csvRecord.get("latitude")), Double.parseDouble(csvRecord.get("longtitude")), csvRecord.get("name"), csvRecord.get("country"), csvRecord.get("phone"), csvRecord.get("region"));
+
                 stations.add(station);
             }
 
