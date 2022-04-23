@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class SuperConverterImpl implements SuperConverter<PetrolStationDto> {
-    private final Map<InputType, ? extends AbstractConverter<? extends Object, PetrolStationDto>> converters = new HashMap<>();
+    private final Map<InputType, ? extends AbstractConverter<Object, PetrolStationDto>> converters = new HashMap<>();
 
     @Override
     public boolean hasConverter(InputType type) {
@@ -29,7 +29,7 @@ public class SuperConverterImpl implements SuperConverter<PetrolStationDto> {
 
     @Override
     public <V extends Object> PetrolStationDto convert(InputType type, V input) {
-        return this.converters.get(type).convert(null);
+        return this.converters.get(type).convert(input);
     }
 
     @Override
