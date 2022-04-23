@@ -16,6 +16,7 @@ import java.io.IOException;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CsvController {
 
+    @Autowired
     private CsvServiceImpl csvService;
 
     @GetMapping(value = "/test")

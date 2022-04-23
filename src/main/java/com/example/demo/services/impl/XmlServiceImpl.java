@@ -15,9 +15,8 @@ public class XmlServiceImpl {
 
     @Autowired
     private PetrolStationServiceImpl petrolStationService;
-    private XmlConverterImpl xmlConverter;
 
     public void save(MultipartFile file) throws IOException {
-        petrolStationService.save(xmlConverter.parseXML(file));
+        petrolStationService.save(XmlConverterImpl.parseXML(file));
     }
 }
