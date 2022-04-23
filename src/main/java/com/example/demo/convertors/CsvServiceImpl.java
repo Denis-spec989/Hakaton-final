@@ -5,7 +5,6 @@ import com.example.demo.helper.CSVHelper;
 import com.example.demo.services.impl.PetrolStationServiceImpl;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,11 +13,11 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CsvServiceImpl {
+public class CsvServiceImpl implements CsvService {
 
     private final PetrolStationServiceImpl petrolStationService;
 
-    public void save(MultipartFile file) throws IOException{
+    public void save(MultipartFile file) throws IOException {
         try {
             List<PetrolStationDto> stations = CSVHelper.csvToPetrolStation(file.getInputStream());
             petrolStationService.save(stations);

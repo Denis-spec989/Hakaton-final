@@ -21,7 +21,9 @@ public class XMLController {
 
     private final XmlServiceImpl xmlService;
 
-    @ApiOperation(value = "Upload data using xml format")
+    @ApiOperation(
+            value = "Upload data using xml format"
+    )
     @PostMapping(value = "", consumes = "multipart/form-data")
     public ResponseEntity<Object> createStations(@RequestParam("file") MultipartFile file) throws IOException {
         xmlService.save(file);

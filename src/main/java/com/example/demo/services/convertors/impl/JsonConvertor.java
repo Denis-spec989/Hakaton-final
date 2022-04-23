@@ -2,25 +2,25 @@ package com.example.demo.services.convertors.impl;
 
 import com.example.demo.dto.PetrolStationDto;
 import com.example.demo.services.convertors.Converter;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 
-public class JsonConvertor implements Converter<Json, PetrolStationDto> {
+import java.util.ArrayList;
+
+public class JsonConvertor implements Converter<Json, Iterable<PetrolStationDto>> {
 
 
     @Override
-    public PetrolStationDto convert(Json input) {
-        return new PetrolStationDto();
+    public Iterable<PetrolStationDto> convert(Json input) {
+        return new ArrayList<>();
     }
 
     @Override
     public String getInputType() {
-        return null;
+        return Json.class.getName();
     }
 
     @Override
     public String getOutputType() {
-        return null;
+        return Iterable.class.getName();
     }
 
 }

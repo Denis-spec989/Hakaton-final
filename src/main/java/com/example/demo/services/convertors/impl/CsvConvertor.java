@@ -1,11 +1,7 @@
 package com.example.demo.services.convertors.impl;
 
 import com.example.demo.dto.PetrolStationDto;
-import com.example.demo.helper.CSVHelper;
 import com.example.demo.services.convertors.Converter;
-import com.example.demo.services.impl.PetrolStationServiceImpl;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -16,15 +12,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
 
-public class CsvConvertor implements Converter<Csv, PetrolStationDto> {
+public class CsvConvertor implements Converter<MultipartFile, Iterable<PetrolStationDto>> {
+
     @Override
-    public PetrolStationDto convert(Csv input) {
-        return new PetrolStationDto();
-    }
-
-    //@Override
     public ArrayList<PetrolStationDto> convert(MultipartFile file) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withDelimiter('|'))) {
@@ -44,11 +35,11 @@ public class CsvConvertor implements Converter<Csv, PetrolStationDto> {
 
     @Override
     public String getInputType() {
-        return null;
+        return MultipartFile.class.getName();
     }
 
     @Override
     public String getOutputType() {
-        return null;
+        return Iterable.class.getName();
     }
 }
