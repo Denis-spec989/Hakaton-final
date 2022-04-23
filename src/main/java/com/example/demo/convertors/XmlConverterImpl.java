@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public  class XmlConverterImpl implements XMLInterface {
            ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
            DocumentBuilder db = dbf.newDocumentBuilder();
-           File ioFile = new File("/resources/XMLFiles/File.tmp");
+           File ioFile = new File("test.xml");
            file.transferTo(ioFile);
            Document doc = db.parse(ioFile);
            // Получаем корневой элемент
@@ -40,10 +41,11 @@ public  class XmlConverterImpl implements XMLInterface {
                 NodeList psProps = petrolStation.getChildNodes();
                 for(int j=0; j<psProps.getLength();j++) {
                    Node psProp = psProps.item(j);
-                    PetrolStationDto psDto = new PetrolStationDto();
+                    PetrolStationDto  psDto = new PetrolStationDto();
                     // Если нода не текст, то это один из параметров книги - печатаем
                     if (psProp.getNodeType() != Node.TEXT_NODE) {
-                        switch (j){
+                        System.out.println(psProp.getNodeName() + ":" + psProp.getChildNodes().item(0).getTextContent());
+                         switch (j){
                             case 0 : psDto.setAddress(psProp.getChildNodes().item(0).getTextContent());
                             case 1 : psDto.setLatitude(Double.parseDouble(psProp.getChildNodes().item(0).getTextContent()));
                             case 2 : psDto.setLongitude(Double.parseDouble(psProp.getChildNodes().item(0).getTextContent()));
@@ -57,7 +59,9 @@ public  class XmlConverterImpl implements XMLInterface {
                 }
             }
            }
-           FileUtils.deleteDirectory(ioFile);
+           PrintWriter writer = new PrintWriter(ioFile);
+           writer.print("");
+           writer.close();
            return psDtoList;
        } catch (ParserConfigurationException e) {
            e.printStackTrace();
