@@ -1,14 +1,11 @@
-package com.example.demo.services;
+package com.example.demo.convertors;
 
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.http.HttpResponse;
@@ -21,7 +18,7 @@ public class XMLServiceImpl implements XMLInterface {
        try {
            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
            DocumentBuilder db = dbf.newDocumentBuilder();
-           Document doc = db.parse(new URL("").openStream());
+           Document doc = db.parse(new URL("api.inagent.site/api/v1").openStream());
 
        } catch (ParserConfigurationException e) {
            e.printStackTrace();
