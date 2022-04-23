@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Table(name = "petrolstations")
 @Getter
 @Setter
+@DynamicUpdate
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
