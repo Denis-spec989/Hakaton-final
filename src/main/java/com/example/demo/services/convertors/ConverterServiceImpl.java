@@ -1,8 +1,6 @@
 package com.example.demo.services.convertors;
 
 import com.example.demo.dto.PetrolStationDto;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -10,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ConverterServiceImpl {
+public class ConverterServiceImpl implements ConverterService<PetrolStationDto> {
     private final Map<String, Converter<?, PetrolStationDto>> convertes = new HashMap<>();
 
     private ConverterServiceImpl(List<Converter<?, PetrolStationDto>> converterList) {
