@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PetrolStationServiceImpl implements PetrolStationService {
-    private final PetrolStationRepository patrolStationRepository;
+    private final PetrolStationRepository petrolStationRepository;
 
     PetrolStationEntity dtoToEntity(PetrolStationDto petrolStationDto) {
         return new PetrolStationEntity(
@@ -31,7 +31,7 @@ public class PetrolStationServiceImpl implements PetrolStationService {
 
     @Override
     public void save(PetrolStationDto petrolStationDto) {
-        patrolStationRepository.save(
+        petrolStationRepository.save(
                 dtoToEntity(petrolStationDto)
         );
     }
@@ -45,12 +45,30 @@ public class PetrolStationServiceImpl implements PetrolStationService {
             );
         }
 
-        patrolStationRepository.saveAll(petrolStationEntities);
+        petrolStationRepository.saveAll(petrolStationEntities);
     }
 
     @Override
     public List<PetrolStationModel> get() {
-        return null;
+        List<PetrolStationEntity> entites = petrolStationRepository.findAll();
+        List<PetrolStationModel> models = new ArrayList<>();
+
+        for (PetrolStationEntity entity : entites) {
+            models.add(
+                    new PetrolStationModel(
+                            entity.getId(),
+                            entity.getLatitude(),
+                            entity.getLongtitude(),
+                            entity.getName(),
+                            entity.getCountry(),
+                            entity.getPhone(),
+                            entity.getRegion(),
+                            entity.getAddress()
+                    )
+            );
+        }
+
+        return models;
     }
 
 

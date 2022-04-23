@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.PetrolStationDto;
+import com.example.demo.services.PetrolStationService;
 import com.example.demo.services.impl.PetrolStationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonController {
 
-    private final PetrolStationServiceImpl petrolStationService;
+    private final PetrolStationService petrolStationService;
 
     @ApiOperation(
             value = "upload data via json"
