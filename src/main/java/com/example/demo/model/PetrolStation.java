@@ -7,18 +7,18 @@ import lombok.ToString;
 
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity
-@Table(name = "task")
+@Table(name = "petrolstation")
 @Getter
 @Setter
 @ToString
 public class PetrolStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "petrolstation_id")
-    private Long petrolstationId;
+    private UUID petrolstationId;
 
     @Column(name="title")
     private String address;
@@ -29,7 +29,7 @@ public class PetrolStation {
     @Column(name="longitude")
     private double longitude;
 
-    @Column(name="name")
+    @Column(name="name_")
     private String name;
 
     @Column(name="country")
