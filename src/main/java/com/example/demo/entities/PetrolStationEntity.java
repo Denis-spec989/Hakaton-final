@@ -29,11 +29,11 @@ public class PetrolStationEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name="latitude")
+    @Column(name = "latitude")
     private double latitude;
 
-    @Column(name="longitude")
-    private double longitude;
+    @Column(name = "longtitude")
+    private double longtitude;
 
     @Column(name = "name")
     private String name;
@@ -50,7 +50,7 @@ public class PetrolStationEntity {
     public PetrolStationEntity(
             String address,
             double latitude,
-            double longitude,
+            double longtitude,
             String name,
             String country,
             String phone,
@@ -58,7 +58,7 @@ public class PetrolStationEntity {
     ) {
         this.address = address;
         this.latitude = latitude;
-        this.longitude = longitude;
+        this.longtitude = longtitude;
         this.name = name;
         this.country = country;
         this.phone = phone;

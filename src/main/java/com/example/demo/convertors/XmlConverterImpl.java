@@ -13,7 +13,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public  class XmlConverterImpl implements XMLInterface {
@@ -44,13 +43,20 @@ public  class XmlConverterImpl implements XMLInterface {
                     // Если нода не текст, то это один из параметров книги - печатаем
                     if (psProp.getNodeType() != Node.TEXT_NODE) {
                         switch (j){
-                            case 0 : psDto.setAddress(psProp.getChildNodes().item(0).getTextContent());
-                            case 1 : psDto.setLatitude(Double.parseDouble(psProp.getChildNodes().item(0).getTextContent()));
-                            case 2 : psDto.setLongitude(Double.parseDouble(psProp.getChildNodes().item(0).getTextContent()));
-                            case 3 : psDto.setName(psProp.getChildNodes().item(0).getTextContent());
-                            case 4 : psDto.setCountry(psProp.getChildNodes().item(0).getTextContent());
-                            case 5 : psDto.setPhone(psProp.getChildNodes().item(0).getTextContent());
-                            case 6 : psDto.setRegion(psProp.getChildNodes().item(0).getTextContent());
+                            case 0:
+                                psDto.setAddress(psProp.getChildNodes().item(0).getTextContent());
+                            case 1:
+                                psDto.setLatitude(Double.parseDouble(psProp.getChildNodes().item(0).getTextContent()));
+                            case 2:
+                                psDto.setLongtitude(Double.parseDouble(psProp.getChildNodes().item(0).getTextContent()));
+                            case 3:
+                                psDto.setName(psProp.getChildNodes().item(0).getTextContent());
+                            case 4:
+                                psDto.setCountry(psProp.getChildNodes().item(0).getTextContent());
+                            case 5:
+                                psDto.setPhone(psProp.getChildNodes().item(0).getTextContent());
+                            case 6:
+                                psDto.setRegion(psProp.getChildNodes().item(0).getTextContent());
                         }
                         psDtoList.add(psDto);
                     }

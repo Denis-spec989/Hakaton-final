@@ -14,7 +14,7 @@ public class PetrolStationDto {
 
     private double latitude;
 
-    private double longitude;
+    private double longtitude;
 
     private String name;
 

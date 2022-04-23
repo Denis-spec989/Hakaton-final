@@ -21,7 +21,7 @@ public class PetrolStationServiceImpl implements PetrolStationService {
         return new PetrolStationEntity(
                 petrolStationDto.getAddress(),
                 petrolStationDto.getLatitude(),
-                petrolStationDto.getLongitude(),
+                petrolStationDto.getLongtitude(),
                 petrolStationDto.getName(),
                 petrolStationDto.getCountry(),
                 petrolStationDto.getPhone(),
