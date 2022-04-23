@@ -1,0 +1,22 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<PetrolStationList>
+    <PetrolStation>
+        <Address>г.Майкоп, Хакурате, 654 </Address>
+        <Latitude>44.62423</Latitude>
+        <Longtitutde>40.05552</Longtitutde>
+        <Name>01023</Name>
+        <Country>RU</Country>
+        <Phone>(8772) 531.50</Phone>
+        <Region>Республика Адыгея</Region>
+    </PetrolStation>
+    <PetrolStation>
+        <Address>г.Майкоп, Батарейная, 385 А</Address>
+        <Latitude>44.57913</Latitude>
+        <Longtitutde>40.1366</Longtitutde>
+        <Name>01024</Name>
+        <Country>RU</Country>
+        <Phone>(8772) 56-38-20</Phone>
+        <Region>Республика Адыгея</Region>
+    </PetrolStation>
+</BookCatalogue>
