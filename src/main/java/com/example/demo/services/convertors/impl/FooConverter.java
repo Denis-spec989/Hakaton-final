@@ -5,17 +5,22 @@ import com.example.demo.services.convertors.AbstractConverter;
 import com.example.demo.services.convertors.InputType;
 import com.example.demo.services.convertors.SuperConverter;
 
-public class FooConverter extends AbstractConverter<Foo, PetrolStationDto> {
+import java.util.ArrayList;
+import java.util.List;
 
-    public FooConverter(SuperConverter<PetrolStationDto> superConverter) {
+public class FooConverter extends AbstractConverter<Foo, Iterable<PetrolStationDto>> {
+
+    public FooConverter(SuperConverter<Iterable<PetrolStationDto>> superConverter) {
         super(superConverter);
     }
 
     @Override
-    public PetrolStationDto convert(Foo input) {
+    public Iterable<PetrolStationDto> convert(Foo input) {
         PetrolStationDto f = new PetrolStationDto();
         f.setName(input.getName());
-        return f;
+        List<PetrolStationDto> fo = new ArrayList<>();
+        fo.add(f);
+        return fo;
     }
 
     @Override
