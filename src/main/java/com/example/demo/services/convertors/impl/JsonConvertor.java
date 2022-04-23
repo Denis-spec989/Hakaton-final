@@ -5,7 +5,6 @@ import com.example.demo.services.convertors.Converter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonConvertor implements Converter<Json, PetrolStationDto> {
 
 

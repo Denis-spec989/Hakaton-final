@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CsvConvertor implements Converter<Csv, PetrolStationDto> {
     @Override
     public PetrolStationDto convert(Csv input) {
