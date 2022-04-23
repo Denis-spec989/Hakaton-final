@@ -1,19 +1,15 @@
 package com.example.demo.controllers;
 
-import com.example.demo.dto.PetrolStationDto;
-import com.example.demo.services.CsvService;
-import com.example.demo.services.impl.PetrolStationServiceImpl;
+import com.example.demo.convertors.CsvServiceImpl;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,11 +17,16 @@ import java.util.ArrayList;
 public class CsvController {
 
     @Autowired
-    private CsvService csvService;
+    private CsvServiceImpl csvService;
 
-    @PostMapping(value = "/newstation", consumes = "multipart/form-data")
-    public ResponseEntity<Object> createStation (@RequestBody ArrayList<PetrolStationDto> petrolStationEntity) {
-        csvService.save();
+    @GetMapping(value = "/test")
+    public String test() {
+        return "hello";
+    }
+
+    @PostMapping(value = "/newstation/csv", consumes = "multipart/form-data")
+    public ResponseEntity<Object> createStationCsv (@RequestParam("file") MultipartFile file) throws IOException {
+        csvService.save(file);
         return ResponseEntity.status(HttpStatus.CREATED).body("created csv");
     }
 }
