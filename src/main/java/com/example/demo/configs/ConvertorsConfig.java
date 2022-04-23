@@ -2,10 +2,7 @@ package com.example.demo.configs;
 
 import com.example.demo.dto.PetrolStationDto;
 import com.example.demo.services.convertors.Converter;
-import com.example.demo.services.convertors.impl.Boo;
-import com.example.demo.services.convertors.impl.BooConvertor;
-import com.example.demo.services.convertors.impl.Foo;
-import com.example.demo.services.convertors.impl.FooConvertor;
+import com.example.demo.services.convertors.impl.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -22,5 +19,15 @@ public class ConvertorsConfig {
     @Bean
     public Converter<Boo, PetrolStationDto> booPetrolStationDtoConverter() {
         return new BooConvertor();
+    }
+
+    @Bean
+    public Converter<Csv, PetrolStationDto> csvPetrolStationDtoConverter() {
+        return new CsvConvertor();
+    }
+
+    @Bean
+    public Converter<Json, PetrolStationDto> jsonPetrolStationDtoConverter() {
+        return new JsonConvertor();
     }
 }

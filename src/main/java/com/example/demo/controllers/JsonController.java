@@ -25,7 +25,7 @@ public class JsonController {
     private PetrolStationServiceImpl petrolStationService;
 
     @PostMapping(value = "/newstation/json", consumes = "application/json")
-    public ResponseEntity<Object> createStationJson (@RequestBody ArrayList<PetrolStationDto> petrolStationEntity) {
+    public ResponseEntity<Object> createStationJson (@RequestBody List<PetrolStationDto> petrolStationEntity) {
         petrolStationService.save(petrolStationEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }

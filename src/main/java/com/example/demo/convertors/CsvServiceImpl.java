@@ -16,8 +16,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CsvServiceImpl {
 
-    @Autowired
-    private PetrolStationServiceImpl petrolStationService;
+    private final PetrolStationServiceImpl petrolStationService;
 
     public void save(MultipartFile file) throws IOException{
         try {
