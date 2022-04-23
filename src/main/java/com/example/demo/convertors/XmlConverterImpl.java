@@ -1,6 +1,8 @@
 package com.example.demo.convertors;
 
 import com.example.demo.dto.PetrolStationDto;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -9,21 +11,24 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
-public class XMLServiceImpl implements XMLInterface {
+public class XmlConverterImpl implements XMLInterface {
 
 
     @Override
-    public ArrayList<PetrolStationDto> parseXML() {
+    public ArrayList<PetrolStationDto> parseXML(MultipartFile file) {
+
        try {
            ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
            DocumentBuilder db = dbf.newDocumentBuilder();
-           Document doc = db.parse(new URL("api.inagent.site/api/v1").openStream());
+           File ioFile = new File("/resources/XMLFiles/File.tmp");
+           file.transferTo(ioFile);
+           Document doc = db.parse(ioFile);
            // Получаем корневой элемент
            Node root = doc.getDocumentElement();
            // Просматриваем все подэлементы корневого - т.е. заправки
@@ -52,7 +57,8 @@ public class XMLServiceImpl implements XMLInterface {
                 }
             }
            }
-           return  psDtoList;
+           FileUtils.deleteDirectory(ioFile);
+           return psDtoList;
        } catch (ParserConfigurationException e) {
            e.printStackTrace();
        } catch (IOException e) {
