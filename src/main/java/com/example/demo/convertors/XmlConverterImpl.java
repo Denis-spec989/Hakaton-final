@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class XmlConverterImpl implements XMLInterface {
+public  class XmlConverterImpl implements XMLInterface {
 
 
     @Override
-    public ArrayList<PetrolStationDto> parseXML(MultipartFile file) {
+    public  ArrayList<PetrolStationDto> parseXML(MultipartFile file) {
 
        try {
            ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
