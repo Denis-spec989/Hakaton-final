@@ -10,6 +10,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 public class PetrolStationModel {
+
     private final UUID id;
     private final double latitude;
     private final double longtitude;

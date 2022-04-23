@@ -1,7 +1,7 @@
 package com.example.demo.convertors;
 
 import com.example.demo.dto.PetrolStationDto;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -11,120 +11,26 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
+import javax.xml.stream.XMLStreamReader;
 import java.io.*;
 import java.util.ArrayList;
 
 public  class XmlConverterImpl  {
 
+    public static ArrayList<PetrolStationDto> parseXML(MultipartFile mF)  {
 
 
-    public static ArrayList<PetrolStationDto> parseXML(MultipartFile file)  {
         ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
         try {
-            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-            XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(convertMultiPartToFile(file)));
-            while (reader.hasNext()) {
-                PetrolStationDto station = new PetrolStationDto();
-                XMLEvent nextEvent = reader.nextEvent();
-                if (nextEvent.isStartElement()) {
-                    StartElement startElement = nextEvent.asStartElement();
-                    switch (startElement.getName().getLocalPart()) {
-                        case "Address":
-                            //station = new Station();
-                            nextEvent = reader.nextEvent();
-                            if (!nextEvent.isCharacters()) {
-                                station.setAddress("");
-                            } else {
-                                station.setAddress(nextEvent.asCharacters().getData());
-                            }break;
-                        case "latitude":
-                            nextEvent = reader.nextEvent();
-                            if (!nextEvent.isCharacters()) {
 
-                            } else {
-                                station.setLatitude(Double.parseDouble(nextEvent.asCharacters().getData()));
-                            }break;
-
-                        case "longtitude":
-                            nextEvent = reader.nextEvent();
-                            if (!nextEvent.isCharacters()) {
-
-                            } else {
-                                station.setLongtitude(Double.parseDouble(nextEvent.asCharacters().getData()));
-                            }break;
-
-
-                        case "Name":
-                            nextEvent = reader.nextEvent();
-                            station.setName(nextEvent.asCharacters().getData());
-                            break;
-                        case "Country":
-                            nextEvent = reader.nextEvent();
-                            if (!nextEvent.isCharacters()) {
-                                station.setCountry("-");
-                            } else {
-                                station.setCountry(nextEvent.asCharacters().getData());
-                            }
-                            break;
-                        case "Phone":
-                            nextEvent = reader.nextEvent();
-                            if (!nextEvent.isCharacters()) {
-                                station.setPhone("-");
-                            } else {
-                                station.setPhone(nextEvent.asCharacters().getData());
-                            }
-                            break;
-                        case "Region":
-                            nextEvent = reader.nextEvent();
-                            if (!nextEvent.isCharacters()) {
-                                station.setRegion("-");
-                            } else {
-                                station.setRegion(nextEvent.asCharacters().getData());
-                            }
-                            break;
-
-                    }
-                }
-                psDtoList.add(station);
-            }
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return psDtoList;
-        //return null;
-    }
-      /*  System.out.println("#####");
-    try {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(file.getInputStream());
-        System.out.println(doc);
-    } catch (ParserConfigurationException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    } catch (SAXException e) {
-        e.printStackTrace();
-    }
-return null;
-
-        try {
-            ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
             System.out.println("######");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             //File ioFile = new File();
             //file.transferTo(ioFile);
-            Document doc = db.parse(file.getInputStream());
+            Document doc = db.parse(mF.getInputStream());
             System.out.println(doc.getTextContent());
             System.out.println("#####7");
             // Получаем корневой элемент
@@ -150,24 +56,30 @@ return null;
                                     System.out.println(psDto.getAddress());}
                                     break;
                                 case 2 : {
-                                    psDto.setLatitude(Double.parseDouble(psProp.getChildNodes().item(0).toString()));
+                                    psDto.setName(psProp.getChildNodes().item(0).getTextContent());
+                                    psDto.setLatitude(Double.parseDouble(psDto.getName()));
                                     System.out.println("latitude=");
                                     System.out.println(psDto.getLatitude());}break;
-                                case 3 : {
-                                    psDto.setLongtitude(Double.parseDouble(psProp.getChildNodes().item(0).toString()));
+                                case 6 : {
+                                    psDto.setName(psProp.getChildNodes().item(0).getTextContent());
+                                    psDto.setLongtitude(Double.parseDouble(psDto.getName()));
                                     System.out.println("longtitude=");
                                     System.out.println(psDto.getLongtitude());} break;
 
 
-                                case 4 : {
+                                case 7 : {
                                     psDto.setName(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.print("Name=");
                                     System.out.println(psDto.getName());}break;
-                                case 5 : {psDto.setCountry(psProp.getChildNodes().item(0).getTextContent());
+                                case 9 : {psDto.setCountry(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.println("Country=");
                                     System.out.println(psDto.getCountry());}; break;
-                                case 6 : psDto.setPhone(psProp.getChildNodes().item(0).getTextContent()); break;
-                                case 7 : psDto.setRegion(psProp.getChildNodes().item(0).getTextContent()); break;
+                                case 11 : {psDto.setPhone(psProp.getChildNodes().item(0).getTextContent());
+                                    System.out.println("Phone=");
+                                    System.out.println(psDto.getPhone());}; break;
+                                case 13 : {psDto.setRegion(psProp.getChildNodes().item(0).getTextContent());
+                                    System.out.println("Region=");
+                                    System.out.println(psDto.getRegion());} break;
 
                             }
 
@@ -192,12 +104,5 @@ return null;
         return null;
 
     }
-    */
-      private static File convertMultiPartToFile(MultipartFile file) throws IOException {
-          File convFile = new File( file.getOriginalFilename() );
-          FileOutputStream fos = new FileOutputStream( convFile );
-          fos.write( file.getBytes() );
-          fos.close();
-          return convFile;
-      }
+
 }
