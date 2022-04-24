@@ -10,5 +10,7 @@ public interface PetrolStationService {
 
     void save(Iterable<PetrolStationDto> patrolStationDtos);
 
+    <T> void load(T input);
+
     List<PetrolStationModel> get();
 }

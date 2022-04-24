@@ -17,11 +17,9 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.*;
 import java.util.ArrayList;
 
-public  class XmlConverterImpl  {
+public class XmlConverterImpl  {
 
     public static ArrayList<PetrolStationDto> parseXML(MultipartFile mF)  {
-
-
         ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

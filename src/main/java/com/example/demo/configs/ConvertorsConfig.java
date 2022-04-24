@@ -1,10 +1,11 @@
 package com.example.demo.configs;
 
 import com.example.demo.dto.PetrolStationDto;
+import com.example.demo.requests.PetrolStationRequest;
 import com.example.demo.services.convertors.Converter;
 import com.example.demo.services.convertors.impl.CsvConvertor;
-import com.example.demo.services.convertors.impl.Json;
 import com.example.demo.services.convertors.impl.JsonConvertor;
+import com.example.demo.services.convertors.impl.models.Json;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
