@@ -13,15 +13,16 @@ import java.util.ArrayList;
 public class JsonMultipConvertor implements Converter<JsonMultip, Iterable<PetrolStationDto>> {
 
     @Override
-    public ArrayList<PetrolStationDto> convert(JsonMultip input) throws IOException {
-        BufferedReader fileReader = new BufferedReader(new InputStreamReader(input.getMultipartFile().getInputStream(), StandardCharsets.UTF_8));
-             ArrayList<PetrolStationDto> stations = new ArrayList<PetrolStationDto>();
+    public ArrayList<PetrolStationDto> convert(JsonMultip input) {
+        //BufferedReader fileReader = new BufferedReader(new InputStreamReader(input.getMultipartFile().getInputStream(), StandardCharsets.UTF_8));
+
+        ArrayList<PetrolStationDto> stations = new ArrayList<PetrolStationDto>();
              return stations;
         }
 
     @Override
     public String getInputType() {
-        return Csv.class.getName();
+        return JsonMultip.class.getName();
     }
 
     @Override
