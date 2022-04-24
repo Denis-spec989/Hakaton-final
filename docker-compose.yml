@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  app:
+    ports:
+      - "127.0.0.1:8080:8080"
+    image: 'cupofjava:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - server.address=0.0.0.0
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cup
+      - SPRING_DATASOURCE_USERNAME=cup
+      - SPRING_DATASOURCE_PASSWORD=java
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres'
+    container_name: db
+    volumes:
+      - /private/var/lib/postgresql:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=cup
+      - POSTGRES_PASSWORD=java
