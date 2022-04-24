@@ -10,6 +10,9 @@ import com.example.demo.services.convertors.ConverterService;
 import com.example.demo.services.convertors.ConverterServiceImpl;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,11 +62,43 @@ public class PetrolStationServiceImpl implements PetrolStationService {
     }
 
     @Override
-    public List<PetrolStationModel> get() {
-        List<PetrolStationEntity> entites = petrolStationRepository.findAll();
+    public List<PetrolStationModel> get(
+            @Nullable Integer limit,
+            @Nullable Integer offset,
+            @Nullable String address,
+            @Nullable Double latitude,
+            @Nullable Double longtitude,
+            @Nullable String name,
+            @Nullable String country,
+            @Nullable String phone,
+            @Nullable String region
+    ) {
+        List<PetrolStationEntity> entities;
+        if (limit != null && offset != null) {
+            entities = petrolStationRepository.findAllByFilterPaginated(
+                    address,
+                    latitude,
+                    longtitude,
+                    name,
+                    country,
+                    phone,
+                    region,
+                    PageRequest.of(offset, limit, Sort.by("id").descending())
+            );
+        } else {
+            entities = petrolStationRepository.findAllByFilter(
+                    address,
+                    latitude,
+                    longtitude,
+                    name,
+                    country,
+                    phone,
+                    region
+            );
+        }
         List<PetrolStationModel> models = new ArrayList<>();
 
-        for (PetrolStationEntity entity : entites) {
+        for (PetrolStationEntity entity : entities) {
             models.add(
                     new PetrolStationModel(
                             entity.getId(),
