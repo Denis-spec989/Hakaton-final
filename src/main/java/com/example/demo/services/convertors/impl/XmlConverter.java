@@ -1,7 +1,8 @@
-package com.example.demo.convertors;
+package com.example.demo.services.convertors.impl;
 
 import com.example.demo.dto.PetrolStationDto;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.example.demo.services.convertors.Converter;
+import com.example.demo.services.convertors.impl.models.PXML;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -11,15 +12,14 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class XmlConverterImpl  {
+public class XmlConverter implements Converter<PXML, Iterable<PetrolStationDto>> {
 
-    public static ArrayList<PetrolStationDto> parseXML(MultipartFile mF)  {
+    @Override
+    public ArrayList<PetrolStationDto> convert(PXML input) {
+        MultipartFile mF = input.getMultipartFile();
         ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -105,4 +105,13 @@ public class XmlConverterImpl  {
 
     }
 
+    @Override
+    public String getInputType() {
+        return PXML.class.getName();
+    }
+
+    @Override
+    public String getOutputType() {
+        return Iterable.class.getName();
+    }
 }
