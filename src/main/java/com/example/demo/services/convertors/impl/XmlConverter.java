@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 
 public class XmlConverter implements Converter<PXML, Iterable<PetrolStationDto>> {
@@ -105,4 +106,6 @@ public class XmlConverter implements Converter<PXML, Iterable<PetrolStationDto>>
     public String getOutputType() {
         return Iterable.class.getName();
     }
+
+
 }
