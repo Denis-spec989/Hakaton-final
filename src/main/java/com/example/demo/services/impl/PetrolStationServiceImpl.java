@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class PetrolStationServiceImpl implements PetrolStationService {
     }
 
     @Override
-    public <T> void load(T input) {
+    public <T> void load(T input) throws IOException {
         Iterable<PetrolStationDto> petrolStationDtos = converterService.convert(input);
         save(petrolStationDtos);
     }

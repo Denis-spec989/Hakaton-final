@@ -4,6 +4,7 @@ import com.example.demo.dto.PetrolStationDto;
 import com.example.demo.models.PetrolStationModel;
 import org.springframework.lang.Nullable;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PetrolStationService {
@@ -11,7 +12,7 @@ public interface PetrolStationService {
 
     void save(Iterable<PetrolStationDto> patrolStationDtos);
 
-    <T> void load(T input);
+    <T> void load(T input) throws IOException;
 
     List<PetrolStationModel> get(
             @Nullable Integer limit,

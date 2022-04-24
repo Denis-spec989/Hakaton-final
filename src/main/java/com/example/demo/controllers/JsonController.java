@@ -29,7 +29,7 @@ public class JsonController {
             value = "upload data via json"
     )
     @PostMapping(value = "", consumes = "application/json")
-    public ResponseEntity<Object> createStationJson(@RequestBody ArrayList<PetrolStationRequest> petrolStationRequests) {
+    public ResponseEntity<Object> createStationJson(@RequestBody ArrayList<PetrolStationRequest> petrolStationRequests) throws IOException {
         petrolStationService.load(
                 new Json(petrolStationRequests)
         );
