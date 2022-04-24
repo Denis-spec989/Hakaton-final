@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.dto.PetrolStationDto;
 import com.example.demo.models.PetrolStationModel;
 import com.example.demo.responses.PetrolStationResponse;
 import com.example.demo.services.PetrolStationService;
