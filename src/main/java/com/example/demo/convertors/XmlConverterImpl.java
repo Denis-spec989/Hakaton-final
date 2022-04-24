@@ -24,15 +24,10 @@ public  class XmlConverterImpl  {
 
         ArrayList<PetrolStationDto> psDtoList = new ArrayList<PetrolStationDto>();
         try {
-
-            System.out.println("######");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            //File ioFile = new File();
-            //file.transferTo(ioFile);
             Document doc = db.parse(mF.getInputStream());
             System.out.println(doc.getTextContent());
-            System.out.println("#####7");
             // Получаем корневой элемент
             Node root = doc.getDocumentElement();
             // Просматриваем все подэлементы корневого - т.е. заправки
@@ -42,57 +37,64 @@ public  class XmlConverterImpl  {
                 // Если нода не заправке, то это книга - заходим внутрь
                 if(petrolStation.getNodeType() != Node.TEXT_NODE) {
                     NodeList psProps = petrolStation.getChildNodes();
-                    System.out.println("psPropslength=");
-                    System.out.println(psProps.getLength());
+                    int m =0;
+                    PetrolStationDto  psDto = new PetrolStationDto();
                     for(int j=0; j<psProps.getLength();j++) {
                         Node psProp = psProps.item(j);
-                        PetrolStationDto  psDto = new PetrolStationDto();
                         // Если нода не текст, то это один из параметров книги - печатаем
-                        if (psProp.getNodeType() != Node.TEXT_NODE) {
-                            //System.out.println(psProp.getNodeName());
-                            switch (j){
-                                case 1 : {psDto.setAddress(psProp.getChildNodes().item(0).getTextContent());
+                        if (psProp.getNodeType() != Node.TEXT_NODE && psProp.getChildNodes().item(0).getTextContent()!=null) {
+                            switch (m){
+                                case 0 : {psDto.setAddress(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.println("Address=");
-                                    System.out.println(psDto.getAddress());}
+                                    System.out.println(psDto.getAddress());
+                                m++;}
                                     break;
-                                case 2 : {
+                                case 1 : {
                                     psDto.setName(psProp.getChildNodes().item(0).getTextContent());
                                     psDto.setLatitude(Double.parseDouble(psDto.getName()));
                                     System.out.println("latitude=");
-                                    System.out.println(psDto.getLatitude());}break;
-                                case 6 : {
+                                    System.out.println(psDto.getLatitude());
+                                    m++;}break;
+                                case 2 : {
                                     psDto.setName(psProp.getChildNodes().item(0).getTextContent());
                                     psDto.setLongtitude(Double.parseDouble(psDto.getName()));
                                     System.out.println("longtitude=");
-                                    System.out.println(psDto.getLongtitude());} break;
-
-
-                                case 7 : {
+                                    System.out.println(psDto.getLongtitude());
+                                    m++;} break;
+                                case 3 : {
                                     psDto.setName(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.print("Name=");
-                                    System.out.println(psDto.getName());}break;
-                                case 9 : {psDto.setCountry(psProp.getChildNodes().item(0).getTextContent());
+                                    System.out.println(psDto.getName());
+                                    m++;}break;
+                                case 4 : {psDto.setCountry(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.println("Country=");
-                                    System.out.println(psDto.getCountry());}; break;
-                                case 11 : {psDto.setPhone(psProp.getChildNodes().item(0).getTextContent());
+                                    System.out.println(psDto.getCountry());
+                                    m++;}; break;
+                                case 5 : {psDto.setPhone(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.println("Phone=");
-                                    System.out.println(psDto.getPhone());}; break;
-                                case 13 : {psDto.setRegion(psProp.getChildNodes().item(0).getTextContent());
+                                    System.out.println(psDto.getPhone());
+                                    m++;}; break;
+                                case 6 : {psDto.setRegion(psProp.getChildNodes().item(0).getTextContent());
                                     System.out.println("Region=");
-                                    System.out.println(psDto.getRegion());} break;
+                                    System.out.println(psDto.getRegion());
+                                    m++;} break;
 
                             }
-
-
                         }
-                        psDtoList.add(psDto);
+
                     }
+                    psDtoList.add(psDto);
                 }
             }
-            //System.out.println(psDtoList.stream().toString());
-            //PrintWriter writer = new PrintWriter(ioFile);
-            //writer.print("");
-            //writer.close();
+            /*
+            System.out.println(" output psDtoList");
+            System.out.println("=============>");
+            for(PetrolStationDto petrolStationDto : psDtoList){
+                System.out.println(petrolStationDto.getAddress());
+                System.out.println(petrolStationDto.getLatitude());
+                System.out.println(petrolStationDto.getRegion());
+            }
+            */
             return psDtoList;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
