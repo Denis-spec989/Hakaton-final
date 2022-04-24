@@ -2,6 +2,7 @@ package com.example.demo.services.convertors.impl;
 
 import com.example.demo.dto.PetrolStationDto;
 import com.example.demo.services.convertors.Converter;
+import com.example.demo.services.convertors.impl.models.Csv;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -13,16 +14,24 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class CsvConvertor implements Converter<MultipartFile, Iterable<PetrolStationDto>> {
+public class CsvConvertor implements Converter<Csv, Iterable<PetrolStationDto>> {
 
     @Override
-    public ArrayList<PetrolStationDto> convert(MultipartFile file) {
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
+    public ArrayList<PetrolStationDto> convert(Csv input) {
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(input.getMultipartFile().getInputStream(), StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withDelimiter('|'))) {
             ArrayList<PetrolStationDto> stations = new ArrayList<PetrolStationDto>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
             for (CSVRecord csvRecord : csvRecords) {
-                PetrolStationDto station = new PetrolStationDto(csvRecord.get("address"), Double.parseDouble(csvRecord.get("latitude")), Double.parseDouble(csvRecord.get("longtitude")), csvRecord.get("name"), csvRecord.get("country"), csvRecord.get("phone"), csvRecord.get("region"));
+                PetrolStationDto station = new PetrolStationDto(
+                        csvRecord.get("address").trim(),
+                        Double.parseDouble(csvRecord.get("latitude")),
+                        Double.parseDouble(csvRecord.get("longtitude")),
+                        csvRecord.get("name").trim(),
+                        csvRecord.get("country").trim(),
+                        csvRecord.get("phone").trim(),
+                        csvRecord.get("region").trim()
+                );
 
                 stations.add(station);
             }
@@ -35,7 +44,7 @@ public class CsvConvertor implements Converter<MultipartFile, Iterable<PetrolSta
 
     @Override
     public String getInputType() {
-        return MultipartFile.class.getName();
+        return Csv.class.getName();
     }
 
     @Override

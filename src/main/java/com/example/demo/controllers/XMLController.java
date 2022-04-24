@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.services.impl.XmlServiceImpl;
+import com.example.demo.services.PetrolStationService;
+import com.example.demo.services.convertors.impl.models.PXML;
 import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,14 +20,16 @@ import java.io.IOException;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class XMLController {
 
-    private final XmlServiceImpl xmlService;
+    private final PetrolStationService petrolStationService;
 
     @ApiOperation(
             value = "Upload data using xml format"
     )
     @PostMapping(value = "", consumes = "multipart/form-data")
     public ResponseEntity<Object> createStations(@RequestParam("file") MultipartFile file) throws IOException {
-        xmlService.save(file);
+        petrolStationService.load(
+                new PXML(file)
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }
 }

@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.PetrolStationDto;
+import com.example.demo.requests.PetrolStationRequest;
 import com.example.demo.services.PetrolStationService;
+import com.example.demo.services.convertors.impl.models.Json;
 import com.example.demo.services.impl.PetrolStationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
@@ -26,8 +28,10 @@ public class JsonController {
             value = "upload data via json"
     )
     @PostMapping(value = "", consumes = "application/json")
-    public ResponseEntity<Object> createStationJson(@RequestBody ArrayList<PetrolStationDto> petrolStationEntity) {
-        petrolStationService.save(petrolStationEntity);
+    public ResponseEntity<Object> createStationJson(@RequestBody ArrayList<PetrolStationRequest> petrolStationRequests) {
+        petrolStationService.load(
+                new Json(petrolStationRequests)
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }
 }

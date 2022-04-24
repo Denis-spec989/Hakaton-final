@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.convertors.CsvService;
+import com.example.demo.services.PetrolStationService;
+import com.example.demo.services.convertors.impl.models.Csv;
 import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,15 +20,17 @@ import java.io.IOException;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CsvController {
 
-    private final CsvService csvService;
+    private final PetrolStationService petrolStationService;
 
     @ApiOperation(
             value = "upload data via csv format"
     )
     @PostMapping(value = "", consumes = "multipart/form-data")
     public ResponseEntity<Object> createStationCsv(@RequestParam("file") MultipartFile file) throws IOException {
-        csvService.save(file);
-        return ResponseEntity.status(HttpStatus.CREATED).body("created csv");
+        petrolStationService.load(
+                new Csv(file)
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }
 }
 
