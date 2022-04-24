@@ -84,15 +84,6 @@ public class XmlConverter implements Converter<PXML, Iterable<PetrolStationDto>>
                     psDtoList.add(psDto);
                 }
             }
-            /*
-            System.out.println(" output psDtoList");
-            System.out.println("=============>");
-            for(PetrolStationDto petrolStationDto : psDtoList){
-                System.out.println(petrolStationDto.getAddress());
-                System.out.println(petrolStationDto.getLatitude());
-                System.out.println(petrolStationDto.getRegion());
-            }
-            */
             return psDtoList;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

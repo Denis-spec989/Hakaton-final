@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS petrolstation;
+DROP TABLE IF EXISTS petrolstations;
 
 CREATE TABLE petrolstation (
     petrolstation_id uuid PRIMARY KEY,
@@ -11,7 +11,7 @@ CREATE TABLE petrolstation (
     region varchar(100)
 );
 
-SELECT * FROM petrolstation;
+SELECT * FROM petrolstations;
 insert into petrolstation (address,latitude,longtitude,name_,country,phone,region)
     values ('г.Майкоп, Хакурате, 654 ', 44.62423, 40.05552, '01023','RU','(8772) 53-46-05','Республика Адыгея');
 
